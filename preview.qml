@@ -12,6 +12,9 @@ Rectangle {
     property real scaleFactor: Math.min(width / 1920, height / 1080)
     property bool showLogin: false
     property bool capsLockOn: false
+    property bool isAudioMuted: true
+
+    FontLoader { source: "font/MaterialSymbolsRounded.ttf" }
 
     Item {
         id: bgGroup
@@ -23,7 +26,7 @@ Rectangle {
         MediaPlayer {
             id: player
             source: "background.mp4"
-            audioOutput: AudioOutput { }
+            audioOutput: AudioOutput { muted: isAudioMuted; volume: 0.2 }
             videoOutput: video
             loops: MediaPlayer.Infinite
             autoPlay: true
@@ -244,6 +247,23 @@ Rectangle {
                 font.weight: Font.Bold
                 font.letterSpacing: 1
                 opacity: 0.9
+            }
+
+            Text {
+                text: isAudioMuted ? "volume_off" : "volume_up"
+                color: "#a9b1d6"
+                font.pointSize: 18 * scaleFactor
+                font.family: "Material Symbols Rounded"
+                opacity: 0.9
+
+                MouseArea {
+                    anchors.fill: parent
+                    cursorShape: Qt.PointingHandCursor
+                    hoverEnabled: true
+                    onEntered: parent.opacity = 1
+                    onExited: parent.opacity = 0.9
+                    onClicked: isAudioMuted = !isAudioMuted
+                }
             }
         }
     }

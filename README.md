@@ -13,6 +13,7 @@ Theme SDDM hiện đại, tối giản với nền video, đồng hồ, thời t
 - Danh sách user dropdown (click chọn, không cycle)
 - Danh sách session dropdown (chọn DE/WM)
 - Đăng nhập bằng phím Enter hoặc click nút Login
+- Nút tắt/bật âm thanh nền video
 - Hiển thị Caps Lock
 - Nút Show/Hide mật khẩu
 - Nút tắt máy, khởi động lại, suspend
@@ -37,8 +38,9 @@ Theme SDDM hiện đại, tối giản với nền video, đồng hồ, thời t
 |---|---|---|
 | M PLUS Rounded 1c | Font chính cho UI | AUR: `ttf-mplus`, hoặc tải từ [Google Fonts](https://fonts.google.com/specimen/M+PLUS+Rounded+1c) |
 | Noto Sans JP | Font dự phòng (fallback) | `noto-fonts-cjk` |
+| Material Symbols Rounded | Icon audio | **Đã bundle sẵn** trong theme (`font/`) |
 
-> **Lưu ý:** Nếu không cài M PLUS Rounded 1c, theme sẽ tự động dùng Noto Sans JP hoặc sans-serif làm fallback.
+> **Lưu ý:** Material Symbols Rounded (`font/MaterialSymbolsRounded.ttf`, ~15MB) đã được bundle sẵn. Nếu không cài M PLUS Rounded 1c, theme sẽ tự động dùng Noto Sans JP hoặc sans-serif làm fallback.
 
 ## Cài đặt
 
@@ -211,6 +213,38 @@ sudo systemctl enable sddm --now
 
 > **Khuyến cáo:** Nên disable display manager cũ trước: `sudo systemctl disable --now gdm lightdm` (tuỳ theo DM hiện tại).
 
+### 6. Cấu hình âm thanh (cho nền video phát tiếng)
+
+SDDM greeter chạy với user `root`, không có quyền truy cập PipeWire của user thường. Để video có âm thanh:
+
+**Bước 1:** Tạo file cấu hình PipeWire-Pulse:
+
+```bash
+sudo tee /etc/pipewire/pipewire-pulse.conf.d/99-sddm-access.conf << 'EOF'
+pulse.properties = {
+    server.address = [
+        "unix:native"
+        { address = "tcp:127.0.0.1:4713" client.access = "unrestricted" }
+    ]
+}
+EOF
+```
+
+**Bước 2:** Restart PipeWire-Pulse:
+
+```bash
+systemctl --user restart pipewire-pulse
+```
+
+**Bước 3:** Thêm `PULSE_SERVER` vào môi trường SDDM greeter (trong `/etc/sddm.conf`):
+
+```ini
+[General]
+GreeterEnvironment=QT_IM_MODULE=,PULSE_SERVER=127.0.0.1:4713
+```
+
+> **Lưu ý:** TCP socket chỉ lắng nghe trên `127.0.0.1` (localhost), an toàn vì không truy cập được từ mạng ngoài.
+
 ## Cấu hình
 
 ### Thay video nền
@@ -239,6 +273,8 @@ Tracen_Ondo/
 ├── theme.conf                  # Cấu hình theme (rỗng)
 ├── background.mp4              # Video nền
 ├── welcome.png                 # Ảnh chào mừng
+├── font/
+│   └── MaterialSymbolsRounded.ttf  # Font icon (bundle)
 ├── preview-1.png               # Ảnh preview 1
 └── preview-2.png               # Ảnh preview 2
 ```
