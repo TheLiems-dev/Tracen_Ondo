@@ -17,6 +17,11 @@ Item {
 
     FontLoader { source: "font/MaterialSymbolsRounded.ttf" }
 
+    AudioOutput {
+        id: audioOutput
+        muted: isAudioMuted
+    }
+
     Item {
         id: bgGroup
         anchors.fill: parent
@@ -27,7 +32,7 @@ Item {
         MediaPlayer {
             id: player
             source: "background.mp4"
-            audioOutput: AudioOutput { muted: isAudioMuted }
+            audioOutput: audioOutput
             videoOutput: video
             loops: MediaPlayer.Infinite
             autoPlay: true
