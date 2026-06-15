@@ -37,7 +37,6 @@ Theme SDDM hiện đại, tối giản với nền video, đồng hồ, thời t
 |---|---|---|
 | M PLUS Rounded 1c | Font chính cho UI | AUR: `ttf-mplus`, hoặc tải từ [Google Fonts](https://fonts.google.com/specimen/M+PLUS+Rounded+1c) |
 | Noto Sans JP | Font dự phòng (fallback) | `noto-fonts-cjk` |
-| Material Symbols Rounded | Icon audio | **Đã bundle sẵn** trong theme (`font/`) |
 
 > **Lưu ý:** Nếu không cài M PLUS Rounded 1c, theme sẽ tự động dùng Noto Sans JP hoặc sans-serif làm fallback.
 
