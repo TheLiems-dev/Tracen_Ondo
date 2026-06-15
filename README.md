@@ -40,7 +40,7 @@ Theme SDDM hiện đại, tối giản với nền video, đồng hồ, thời t
 | Noto Sans JP | Font dự phòng (fallback) | `noto-fonts-cjk` |
 | Material Symbols Rounded | Icon audio | **Đã bundle sẵn** trong theme |
 
-> **Lưu ý:** Material Symbols Rounded (`MaterialSymbolsRounded.ttf`, ~15MB) đã được bundle sẵn trong thư mục theme. Nếu không cài M PLUS Rounded 1c, theme sẽ tự động dùng Noto Sans JP hoặc sans-serif làm fallback.
+> **Lưu ý:** Material Symbols Rounded (`font/MaterialSymbolsRounded.ttf`, ~15MB) đã được bundle sẵn trong thư mục theme. Nếu không cài M PLUS Rounded 1c, theme sẽ tự động dùng Noto Sans JP hoặc sans-serif làm fallback.
 
 ## Cài đặt
 
@@ -241,7 +241,8 @@ Tracen_Ondo/
 ├── theme.conf                  # Cấu hình theme (rỗng)
 ├── background.mp4              # Video nền
 ├── welcome.png                 # Ảnh chào mừng
-├── MaterialSymbolsRounded.ttf  # Font icon (bundle)
+├── font/
+│   └── MaterialSymbolsRounded.ttf  # Font icon (bundle)
 ├── preview-1.png               # Ảnh preview 1
 └── preview-2.png               # Ảnh preview 2
 ```

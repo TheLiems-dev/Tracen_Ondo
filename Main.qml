@@ -15,7 +15,7 @@ Item {
     property bool capsLockOn: false
     property bool isAudioMuted: true
 
-    FontLoader { source: "MaterialSymbolsRounded.ttf" }
+    FontLoader { source: "font/MaterialSymbolsRounded.ttf" }
 
     Item {
         id: bgGroup
