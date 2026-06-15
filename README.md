@@ -113,6 +113,75 @@ sudo xbps-install -S noto-fonts-cjk mplus-fonts
 ```
 </details>
 
+<details>
+<summary><b>NixOS</b></summary>
+
+Thêm vào `/etc/nixos/configuration.nix`:
+
+```nix
+{ config, pkgs, ... }:
+
+let
+  tracenTheme = pkgs.stdenv.mkDerivation {
+    name = "tracen-ondo";
+    src = pkgs.fetchFromGitHub {
+      owner = "TheLiems-dev";
+      repo = "Tracen_Ondo";
+      rev = "master";
+      hash = "";  # sau khi build, thay bằng hash thật
+    };
+    installPhase = ''
+      mkdir -p $out
+      cp -r * $out/
+    '';
+  };
+in {
+  services.displayManager.sddm = {
+    enable = true;
+    theme = "${tracenTheme}";
+    package = pkgs.kdePackages.sddm;  # Qt6
+  };
+
+  environment.systemPackages = with pkgs; [
+    qt6.qtmultimedia
+    qt6.qt5compat
+    qt6.qtwayland
+    noto-fonts-cjk
+    mplus-outline-fonts  # M PLUS Rounded 1c
+  ];
+}
+```
+
+> **Nếu gặp lỗi hash:** chạy lệnh trên sẽ báo hash sai, copy hash đó vào dòng `hash = "";` rồi chạy lại.
+</details>
+
+<details>
+<summary><b>Distro độc lập khác (Gentoo, Alpine, Slackware, …)</b></summary>
+
+Tên gói có thể khác nhau, tra theo bảng sau:
+
+| Thư viện | Tìm gói với |
+|---|---|
+| SDDM | `sddm` |
+| Qt6 Multimedia | `qt6-multimedia` hoặc `qt6-qtmultimedia` |
+| Qt6 5Compat | `qt6-5compat` hoặc `qt6-qt5compat` |
+| Qt6 Wayland | `qt6-wayland` hoặc `qt6-qtwayland` |
+| Qt6 Shapes | thường có sẵn trong Qt6 declarative |
+| M PLUS Rounded 1c | `mplus-fonts`, `ttf-mplus`, `mplus-outline-fonts` |
+| Noto Sans CJK | `noto-fonts-cjk`, `google-noto-sans-cjk-fonts` |
+
+Sau khi cài dependencies, kiểm tra bằng lệnh:
+
+```bash
+qml6 --version          # Qt6 QML
+fc-list | grep -i mplus  # Font M PLUS
+```
+
+> Nếu distro bạn không có gói `qt6-5compat`, hãy cài từ source: `git clone https://github.com/qt/qt5compat.git && cd qt5compat && cmake -B build && cmake --build build && sudo cmake --install build`
+>
+> Nếu video không chạy, thử backend khác: thay `qt6-multimedia-ffmpeg` bằng `qt6-multimedia-gstreamer` (hoặc ngược lại).
+</details>
+
 > **Gỡ rối:** Nếu video không chạy, thử đổi backend Qt Multimedia (cài `qt6-multimedia-gstreamer` thay vì `qt6-multimedia-ffmpeg`). Kiểm tra bằng `journalctl -u sddm -f` để xem log lỗi.
 
 ### 4. Cấu hình SDDM
