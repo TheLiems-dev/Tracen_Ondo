@@ -27,7 +27,7 @@ Item {
         MediaPlayer {
             id: player
             source: "background.mp4"
-            audioOutput: AudioOutput { id: ao; volume: isAudioMuted ? 0 : 0.2 }
+            audioOutput: AudioOutput { muted: false; volume: 0.2 }
             videoOutput: video
             loops: MediaPlayer.Infinite
             autoPlay: true
@@ -263,10 +263,7 @@ Item {
                     hoverEnabled: true
                     onEntered: parent.opacity = 1
                     onExited: parent.opacity = 0.9
-                    onClicked: {
-                        isAudioMuted = !isAudioMuted
-                        ao.volume = isAudioMuted ? 0 : 0.2
-                    }
+                    onClicked: isAudioMuted = !isAudioMuted
                 }
             }
         }
