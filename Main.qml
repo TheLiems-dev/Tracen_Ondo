@@ -20,6 +20,7 @@ Item {
     AudioOutput {
         id: audioOutput
         muted: isAudioMuted
+        volume: 0.2
     }
 
     Item {
