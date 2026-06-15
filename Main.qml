@@ -17,12 +17,6 @@ Item {
 
     FontLoader { source: "font/MaterialSymbolsRounded.ttf" }
 
-    AudioOutput {
-        id: audioOutput
-        muted: isAudioMuted
-        volume: 0.2
-    }
-
     Item {
         id: bgGroup
         anchors.fill: parent
@@ -33,7 +27,7 @@ Item {
         MediaPlayer {
             id: player
             source: "background.mp4"
-            audioOutput: audioOutput
+            audioOutput: AudioOutput { id: ao; volume: isAudioMuted ? 0 : 0.2 }
             videoOutput: video
             loops: MediaPlayer.Infinite
             autoPlay: true
@@ -269,7 +263,10 @@ Item {
                     hoverEnabled: true
                     onEntered: parent.opacity = 1
                     onExited: parent.opacity = 0.9
-                    onClicked: isAudioMuted = !isAudioMuted
+                    onClicked: {
+                        isAudioMuted = !isAudioMuted
+                        ao.volume = isAudioMuted ? 0 : 0.2
+                    }
                 }
             }
         }
