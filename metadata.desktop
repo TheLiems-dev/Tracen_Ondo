@@ -1,0 +1,8 @@
+[SddmGreeterTheme]
+Name=Tracen Ondo
+Description=Tracen Ondo SDDM theme
+Author=hieudubai
+Type=sddm-theme
+MainScript=Main.qml
+ConfigFile=theme.conf
+QtVersion=6
