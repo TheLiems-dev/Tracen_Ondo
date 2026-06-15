@@ -13,7 +13,6 @@ Theme SDDM hiện đại, tối giản với nền video, đồng hồ, thời t
 - Danh sách user dropdown (click chọn, không cycle)
 - Danh sách session dropdown (chọn DE/WM)
 - Đăng nhập bằng phím Enter hoặc click nút Login
-- Nút tắt/bật âm thanh nền video
 - Hiển thị Caps Lock
 - Nút Show/Hide mật khẩu
 - Nút tắt máy, khởi động lại, suspend
@@ -38,9 +37,8 @@ Theme SDDM hiện đại, tối giản với nền video, đồng hồ, thời t
 |---|---|---|
 | M PLUS Rounded 1c | Font chính cho UI | AUR: `ttf-mplus`, hoặc tải từ [Google Fonts](https://fonts.google.com/specimen/M+PLUS+Rounded+1c) |
 | Noto Sans JP | Font dự phòng (fallback) | `noto-fonts-cjk` |
-| Material Symbols Rounded | Icon audio | **Đã bundle sẵn** trong theme |
 
-> **Lưu ý:** Material Symbols Rounded (`font/MaterialSymbolsRounded.ttf`, ~15MB) đã được bundle sẵn trong thư mục theme. Nếu không cài M PLUS Rounded 1c, theme sẽ tự động dùng Noto Sans JP hoặc sans-serif làm fallback.
+> **Lưu ý:** Nếu không cài M PLUS Rounded 1c, theme sẽ tự động dùng Noto Sans JP hoặc sans-serif làm fallback.
 
 ## Cài đặt
 
@@ -241,8 +239,6 @@ Tracen_Ondo/
 ├── theme.conf                  # Cấu hình theme (rỗng)
 ├── background.mp4              # Video nền
 ├── welcome.png                 # Ảnh chào mừng
-├── font/
-│   └── MaterialSymbolsRounded.ttf  # Font icon (bundle)
 ├── preview-1.png               # Ảnh preview 1
 └── preview-2.png               # Ảnh preview 2
 ```
